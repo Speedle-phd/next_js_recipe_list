@@ -3,7 +3,8 @@
 import React, { useState } from 'react'
 import LoginForm from './LoginFormClient'
 import RegisterForm from './RegisterFormClient'
-import { cn } from '@/lib/utils'
+import { cn } from '../../../lib/utils'
+
 
 type PLoginCard = React.HTMLAttributes<HTMLDivElement>
 
