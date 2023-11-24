@@ -38,7 +38,7 @@ const LoginFormClient = () => {
          }
          if(responseData.success){
             toast.success('Successfully logged in.')
-            router.push('/')
+            router.push('/dashboard')
          }
          
       } catch (error) {

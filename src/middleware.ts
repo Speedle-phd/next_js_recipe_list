@@ -8,15 +8,20 @@ export async function middleware(request: NextRequest) {
    requestHeaders.set('x-pathname', request.nextUrl.pathname)
 
    const cookieStore = cookies()
+   console.log(request.nextUrl.pathname)
    const authCookie = cookieStore.get('panda-recipes-auth')
 
    const isAuth = authCookie ? true : false
 
-   if (!isAuth && !request.nextUrl.pathname.startsWith('/login')) {
+   if (
+      !isAuth &&
+      (!request.nextUrl.pathname.startsWith('/login') &&
+         request.nextUrl.pathname !== '/')
+   ) {
       const url = new URL('/login', request.url)
       return NextResponse.redirect(url)
-   } else if (isAuth && request.nextUrl.pathname.startsWith('/login')) {
-      const url = new URL('/', request.url)
+   } else if (isAuth && (request.nextUrl.pathname.startsWith('/login') || request.nextUrl.pathname === "/")) {
+      const url = new URL('/dashboard', request.url)
       return NextResponse.redirect(url)
    } else {
       if (authCookie?.value) {

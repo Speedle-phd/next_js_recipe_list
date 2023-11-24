@@ -43,7 +43,7 @@ const RegisterFormClient = () => {
          }
          if (responseData.success) {
             toast.success('Successfully registered.')
-            router.push('/')
+            router.push('/dashboard')
          }
       } catch (error) {
          console.log(error)
