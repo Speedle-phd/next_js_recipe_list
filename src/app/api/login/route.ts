@@ -1,10 +1,12 @@
-import prisma from "@/lib/db";
-import { loginSchema } from "@/lib/types";
+
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import * as jose from 'jose'
-import { getErrorMessage } from "@/lib/utils";
+
 import * as bcrypt from 'bcrypt'
+import { getErrorMessage } from "../../../lib/utils";
+import { loginSchema } from "../../../lib/types";
+import prisma from "../../../lib/db";
 export async function POST(request: Request) {
    const body: {[key: string]: string} = await request.json();
    const result = loginSchema.safeParse(body);

@@ -1,12 +1,13 @@
 'use client'
 
-import { TAuthResponse, TLoginSchema, loginSchema } from '@/lib/types'
+
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'react-toastify'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import SubmitButtonClient from './SubmitButtonClient'
+import { TLoginSchema, loginSchema, TAuthResponse } from '../../../lib/types'
 
 const LoginFormClient = () => {
    const router = useRouter()
