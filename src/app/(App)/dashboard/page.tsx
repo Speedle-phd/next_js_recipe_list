@@ -1,5 +1,6 @@
-import LogoutButtonClient from '@/app/components/CustomComponents/LogoutButtonClient'
+
 import React from 'react'
+import LogoutButtonClient from '../../components/CustomComponents/LogoutButtonClient'
 
 const Dashboard = () => {
   return (

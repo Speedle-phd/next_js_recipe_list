@@ -1,6 +1,7 @@
 import Image from "next/image"
 import loginPicture from "/public/images/login-side.jpg"
-import LoginCard from "@/app/components/Login_Components/LoginCard"
+import LoginCard from "../../components/Login_Components/LoginCard"
+
 
 const Login = () => {
    
