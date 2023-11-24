@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import ToastifyClient from './components/CustomComponents/ToastifyClient'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,10 +19,7 @@ export default function RootLayout({
    return (
       <html data-theme='mytheme' lang='en'>
          <body className={`${inter.className} bg-zinc-100 text-zinc-900`}>
-            <ToastContainer
-               position='top-center'
-               autoClose={3000}
-            />
+            <ToastifyClient />
             {children}
          </body>
       </html>
