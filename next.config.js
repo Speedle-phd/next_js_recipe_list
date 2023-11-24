@@ -6,7 +6,6 @@ const nextConfig = {
    //       hostname: "placehold.jp"
    //    }]
    // }
-   
 }
 
 module.exports = nextConfig
