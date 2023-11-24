@@ -37,7 +37,6 @@ export async function POST(request: Request) {
          return NextResponse.json({ success: false, statuscode: 401, message })
       }
    }
-
    return NextResponse.json(
       Object.keys(zodErrors).length > 0 ? 
       { success: false, errors: zodErrors } : 
