@@ -11,6 +11,7 @@ export async function POST(request: Request) {
    let token;
    let zodErrors = {}
    if (!result.success){
+      //@ts-ignore
       result.error.issues.forEach(el => {
          zodErrors = {...zodErrors, [el.path[0]]: el.message}
       })

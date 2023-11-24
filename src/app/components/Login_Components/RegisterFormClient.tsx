@@ -14,6 +14,7 @@ const RegisterFormClient = () => {
       register,
       handleSubmit,
       formState: { errors, isSubmitting },
+      clearErrors
    } = useForm<TRegisterSchema>({
       resolver: zodResolver(registerSchema),
    })
@@ -51,13 +52,15 @@ const RegisterFormClient = () => {
    }
 
    useEffect(() => {
-      if (errors) {
+      console.log(errors)
+      if (Object.keys(errors).length > 0) {
          for (let key in errors) {
             //@ts-ignore
             toast.error(errors[key].message, { toastId: `${key}-error` })
          }
       }
-   }, [errors])
+
+   }, [errors, clearErrors])
    return (
       <form onSubmit={handleSubmit(onSubmit)} className='grid gap-4'>
          <input
