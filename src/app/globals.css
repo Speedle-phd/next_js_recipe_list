@@ -3,3 +3,11 @@
 @tailwind utilities;
 
 
+@layer base{
+}
+
+@layer utilities{
+   .custom-underline{
+      @apply h-1 bg-primary mb-6 mt-2 rounded-lg w-[50%] mx-auto
+   }
+}
