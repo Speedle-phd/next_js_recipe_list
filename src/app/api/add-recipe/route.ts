@@ -1,24 +1,8 @@
 import prisma from "@/lib/db"
-import fileUpload from 'express-fileupload'
 import { writeFile } from "fs/promises"
 import { NextRequest, NextResponse } from "next/server"
 import path from "path"
 import { createEdgeRouter } from 'next-connect'
-import multer from "multer"
-import fs from 'fs'
-
-// const storage = multer.diskStorage({
-//    destination: (req, file, cb) => {
-//       cb(null, 'public/uploads/')
-//    },
-//    filename: (req, file, cb) => {
-//       const { user_id: id } = req.query
-//       const uniqueSuffix = Date.now()
-//       console.log(req, file, "!!!!!!!!!")
-//       cb(null, file.fieldname + '-' + id + '.jpg')
-//    },
-// })
-// const upload = multer({ storage: storage })
 
 interface RequestContext {
    params: {
@@ -69,5 +53,5 @@ router.post(async(request) => {
 })
 
 export async function POST(request: NextRequest, ctx: RequestContext){
-   return router.run(request, ctx)
+   return await router.run(request, ctx)
 }
