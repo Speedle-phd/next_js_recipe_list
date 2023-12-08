@@ -8,9 +8,10 @@ export default function NotFound() {
          <header className="text-center text-3xl">
             <h2 className="font-extrabold">Dinner Not Found</h2>
             <p className="text-sm">Could not find requested resource.</p>
+            <div className="custom-underline"></div>
          </header>
          <Image src={shopClosed} alt={"Shop's closed"} width={500} height={500} className="rounded-md" />
-         <Link href='/'><button className="btn btn-primary">Return Home</button></Link>
+         <Link href='/dashboard'><button className="btn btn-primary">Return Home</button></Link>
       </div>
    )
 }

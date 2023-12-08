@@ -34,3 +34,24 @@ export type TAuthResponse = {
    statuscode?: number
    message?: string
 }
+export type TResponse = {
+   success: boolean
+   errors?: string[]
+   statuscode?: number
+   message?: string
+}
+
+export const resetSchema = z.object({
+   email: z.string().min(1, {message: "Please fill out the input."}).email()
+})
+export type TResetSchema = z.infer<typeof resetSchema>
+
+
+export const addRecipeSchema = z.object({
+   title: z.string().min(3, 'Please choose a title for your recipe with at least 3 letters.'),
+   sources: z.string().optional(),
+   type: z.enum(['meat', 'vegetarian', 'vegan']).optional(),
+   ingredients: z.array(z.string()).optional().or(z.boolean().optional())
+})
+
+export type TAddRecipeSchema = z.infer<typeof addRecipeSchema>

@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-const path = require('path')
+// const path = require('path')
 const nextConfig = {
    // images: {
    //    remotePatterns: [{
@@ -14,7 +14,11 @@ const nextConfig = {
 
    //    return config
    // }
-   webpack: (config) => {
+   // fastRefresh: true,
+   optimizeFonts: false,
+   productionBrowserSourceMaps: false,
+   swcMinify: true,
+   // webpack: (config) => {
       /* On `node-fetch` v2, that `supabase-js` uses,
   `encoding` package was optionally required for `.textConverted`
   which means it wasn't in `node-fetch` deps.
@@ -22,13 +26,13 @@ const nextConfig = {
   Since `encoding` is not part of the deps by default, when using with webpack,
   it will raise a warning message.
   This can be ignored as it doesn't prevent anything to work well. */
-      config.ignoreWarnings = [
-         { module: /node_modules\/node-fetch\/lib\/index\.js/ },
-         { file: /node_modules\/node-fetch\/lib\/index\.js/ },
-      ]
+   //    config.ignoreWarnings = [
+   //       { module: /node_modules\/node-fetch\/lib\/index\.js/ },
+   //       { file: /node_modules\/node-fetch\/lib\/index\.js/ },
+   //    ]
 
-      return config
-   },
+   //    return config
+   // },
 }
 
 module.exports = nextConfig

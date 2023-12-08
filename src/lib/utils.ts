@@ -1,3 +1,4 @@
+
 import { ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 // import { AxiosError } from 'axios'
@@ -21,3 +22,19 @@ export const getErrorMessage = (error: unknown): string => {
    }
    return message
 }
+
+export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
+
+export const ingredientsArray = [
+   {type: "meat", name:"minced-meat"},
+   {type: "side", name:"potatoes"},
+   {type: "side", name:"rice"},
+   {type: "side", name:"noodles"},
+   {type: "side", name:"fries"},
+   {type: "side", name:"croquettes"},
+   {type: "meat", name: "chicken"},
+   {type: "meat-supplement", name: "tofu"},
+   {type: "meat", name:'pig'},
+]
+

@@ -4,7 +4,8 @@ import React, { useState } from 'react'
 import LoginForm from './LoginFormClient'
 import RegisterForm from './RegisterFormClient'
 import { cn } from '../../../lib/utils'
-
+import GuestLogin from './GuestLogin'
+import ForgotPasswordClient from './ForgotPasswordClient'
 
 type PLoginCard = React.HTMLAttributes<HTMLDivElement>
 
@@ -36,6 +37,16 @@ const LoginCard = ({ className, ...props }: PLoginCard) => {
                >
                   Register now.
                </p>
+               <ForgotPasswordClient />
+               <div className='text-[0.6rem] mt-8'>
+                  <div className='flex justify-between items-start'>
+                     <GuestLogin />
+                     <header>
+                        <h3>Just curious?</h3>
+                        <p className='mb-2'>Take a peak with the guest user.</p>
+                     </header>
+                  </div>
+               </div>
             </>
          ) : (
             <>
@@ -47,7 +58,7 @@ const LoginCard = ({ className, ...props }: PLoginCard) => {
                   tabIndex={0}
                   className='text-xs font-semibold text-primary underline cursor-pointer hover:text-accent focus-visible:text-accent transition-colors outline-none'
                >
-                  Register now.
+                  Login now.
                </p>
             </>
          )}

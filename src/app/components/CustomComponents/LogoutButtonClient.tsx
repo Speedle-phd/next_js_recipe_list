@@ -1,10 +1,13 @@
 "use client"
 
+import { cn } from "@/lib/utils"
 import { useRouter } from "next/navigation"
 import { toast } from "react-toastify"
 import Cookies from "universal-cookie"
 
-const LogoutButtonClient = () => {
+type TLogoutButtonClient = React.HTMLAttributes<HTMLButtonElement>
+
+const LogoutButtonClient = ({className} : TLogoutButtonClient) => {
    const router = useRouter()
    const cookieStore = new Cookies()
    return (
@@ -14,7 +17,7 @@ const LogoutButtonClient = () => {
             toast.success('Successfully logged out')
             router.push('/login')
          }}
-         className='btn btn-outline btn-error'
+         className={cn(className, 'btn btn-outline outline-none hover:bg-red-400 focus-visible:bg-red-400 hover:border-red-500 focus-visible:border-red-500')}
       >
          Logout
       </button>

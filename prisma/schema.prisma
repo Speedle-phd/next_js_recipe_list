@@ -25,7 +25,7 @@ model Recipe {
    tags     String?
    sources  String?
    image    String?
-   rank     Int?
+   rank     Int @default(0)
    author   User    @relation(fields: [authorId], references: [id])
    authorId String
 }

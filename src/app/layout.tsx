@@ -2,7 +2,9 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import 'react-toastify/dist/ReactToastify.css'
-import ToastifyClient from './components/CustomComponents/ToastifyClient'
+import 'react-image-crop/dist/ReactCrop.css'
+
+import { ToastContainer } from 'react-toastify'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,8 +19,8 @@ export default function RootLayout({
 
    return (
       <html data-theme='mytheme' lang='en'>
-         <body className={`${inter.className} bg-zinc-100 text-zinc-900`}>
-            <ToastifyClient />
+         <body className={`${inter.className} bg-zinc-100 text-zinc-900 min-h-[100dvh]`}>
+            <ToastContainer position='top-center' autoClose={3000} />
             {children}
          </body>
       </html>

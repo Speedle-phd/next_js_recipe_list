@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import SubmitButtonClient from './SubmitButtonClient'
 import { TRegisterSchema, registerSchema, TAuthResponse } from '../../../lib/types'
+import { getErrorMessage } from '../../../lib/utils'
 
 const RegisterFormClient = () => {
    const router = useRouter()
@@ -47,12 +48,11 @@ const RegisterFormClient = () => {
             router.push('/dashboard')
          }
       } catch (error) {
-         console.log(error)
+         toast.error(getErrorMessage(error))
       }
    }
 
    useEffect(() => {
-      console.log(errors)
       if (Object.keys(errors).length > 0) {
          for (let key in errors) {
             //@ts-ignore

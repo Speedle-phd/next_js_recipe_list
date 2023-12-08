@@ -6,8 +6,35 @@
 @layer base{
 }
 
+@layer components{
+   .input-header{
+      @apply font-mono font-semibold text-sm text-accent
+   }
+}
+
 @layer utilities{
    .custom-underline{
       @apply h-1 bg-primary mb-6 mt-2 rounded-lg w-[50%] mx-auto
    }
+   .custom-modal{
+      top: 50%;
+      left: 50%;
+      position: fixed;
+      translate: -50% -50%;
+   }
+   .checked-checkbox:checked + label{
+      @apply bg-secondary shadow
+   }
+   .checked-ingredients:has(:checked) > .ingredients{
+      @apply bg-accent
+   }
+   .visually-hidden {
+   clip: rect(0 0 0 0);
+   clip-path: inset(50%);
+   height: 1px;
+   overflow: hidden;
+   position: absolute;
+   white-space: nowrap;
+   width: 1px;
+}
 }

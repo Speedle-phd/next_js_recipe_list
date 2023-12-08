@@ -7,7 +7,8 @@ import { toast } from 'react-toastify'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import SubmitButtonClient from './SubmitButtonClient'
-import { TLoginSchema, loginSchema, TAuthResponse } from '../../../lib/types'
+import { TLoginSchema, loginSchema, TAuthResponse } from '@/lib/types'
+import { getErrorMessage } from '@/lib/utils'
 
 const LoginFormClient = () => {
    const router = useRouter()
@@ -44,31 +45,32 @@ const LoginFormClient = () => {
          }
          
       } catch (error) {
-         console.log(error)
+         toast.error(getErrorMessage(error))
       }
    }
    
    useEffect(() => {
-      console.log(errors)
       if (Object.keys(errors).length > 0) {
          for (let key in errors) {
             //@ts-ignore
             toast.error(errors[key].message, { toastId: `${key}-error` })
          }
       }
-   }, [errors, clearErrors])
+   }, [errors])
 
    return (
       <form onSubmit={handleSubmit(onSubmit)} className='grid gap-4'>
          <input
             className='h-8 rounded-md px-4 placeholder:text-white/20 placeholder:text-xs'
             placeholder='Email...'
+            autoComplete='email'
             type='email'
             {...register('email')}
          />
          <input
             className='h-8 rounded-md px-4 placeholder:text-white/20 placeholder:text-xs'
             placeholder='Password...'
+            autoComplete='new-password'
             type='password'
             {...register('password')}
          />

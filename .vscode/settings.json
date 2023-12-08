@@ -1,0 +1,25 @@
+{
+   "sqltools.connections": [
+      {
+         "mysqlOptions": {
+            "authProtocol": "default",
+            "enableSsl": "Disabled"
+         },
+         "previewLimit": 50,
+         "server": "localhost",
+         "port": 3306,
+         "driver": "MySQL",
+         "name": "mysql",
+         "database": "onos_db",
+         "username": "shanks",
+         "askForPassword": true
+      },
+      {
+         "previewLimit": 50,
+         "driver": "SQLite",
+         "name": "Recipes",
+         "database": "${workspaceFolder:recipe_next_js}/prisma/dev.db"
+      }
+   ],
+   "sqltools.useNodeRuntime": true
+}
