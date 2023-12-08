@@ -17,6 +17,7 @@ const IngredientsPicker = ({
    register, className
 }: PIngredientsPicker) => {
    // @ts-ignore
+   //@ts-nocheck
    const groupedIngredients = Object.groupBy(ingredientsArray, el => el.type)
    
    const groupedArray = [...Object.entries(groupedIngredients)]
