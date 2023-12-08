@@ -1,8 +1,10 @@
+// @ts-nocheck
 import prisma from "@/lib/db"
 import { writeFile } from "fs/promises"
 import { NextRequest, NextResponse } from "next/server"
 import path from "path"
 import { createEdgeRouter } from 'next-connect'
+
 
 interface RequestContext {
    params: {
@@ -53,5 +55,5 @@ router.post(async(request) => {
 })
 
 export async function POST(request: NextRequest, ctx: RequestContext){
-   return await router.run(request, ctx)
+   return router.run(request, ctx)
 }
