@@ -16,10 +16,20 @@ type PIngredientsPicker = React.HTMLAttributes<HTMLElement> & {
 const IngredientsPicker = ({
    register, className
 }: PIngredientsPicker) => {
-   // @ts-ignore
-   //@ts-nocheck
-   const groupedIngredients = Object.groupBy(ingredientsArray, el => el.type)
+
+   const groupedIngredients = ingredientsArray.reduce((total, curr) => {
+      if(curr.type in total){
+         total[curr.type].push(curr)
+      } else {
+         total[curr.type] = [curr]
+      }
+      return total
+   },{})
+
    
+   // const groupedIngredients = Object.groupBy(ingredientsArray, el => el.type)
+   
+
    const groupedArray = [...Object.entries(groupedIngredients)]
 
    const handleKeyDown = (e: React.KeyboardEvent) => {
