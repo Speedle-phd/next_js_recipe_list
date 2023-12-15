@@ -21,9 +21,9 @@ const Recipes = async ({ searchParams }) => {
    const { hasLess, hasMore, recipesArr, maxPages } = await res.json()
 
    //try find images
-   const {search} = createInspector({filter: filterByExtension(['png']), type: 'all'})
-   const imageFiles = await search(`${process.cwd()}/`)
-   console.log(imageFiles)
+   // const {search} = createInspector({filter: filterByExtension(['png']), type: 'all'})
+   // const imageFiles = await search(`${process.cwd()}/`)
+   // console.log(imageFiles)
 
 
    return (

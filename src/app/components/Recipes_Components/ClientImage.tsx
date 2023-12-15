@@ -19,7 +19,7 @@ const ClientImage = ({ src, alt, width, height, className, pageUrl }: PClientIma
    }
    return (
       <Image
-         loader={imageLoader}
+         // loader={imageLoader}
          className={cn(className, '')}
          src={src ?? plate}
          alt={alt}
