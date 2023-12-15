@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
       )
    }
    console.log(
-      process.cwd()
+      process.cwd(), "cwd"
    )
 
    const title = (body.get('title') as string) ?? null

@@ -14,6 +14,7 @@ type PClientImage = React.HTMLAttributes<HTMLImageElement> & {
 
 const ClientImage = ({ src, alt, width, height, className, pageUrl }: PClientImage) => {
    const imageLoader = ({ src, width, quality }) => {
+      console.log(src)
       return `${pageUrl}/${src}?w=${width}&q=${quality || 75}`
    }
    return (
