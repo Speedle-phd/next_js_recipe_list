@@ -1,5 +1,5 @@
 // @ts-nocheck
-
+import * as os from 'os'
 import prisma from '@/lib/db'
 import { addRecipeServerSchema } from '@/lib/types'
 import { writeFile } from 'fs/promises'
@@ -27,11 +27,13 @@ export async function POST(request: NextRequest) {
 
       } else {
          await writeFile(
-         path.join("/opt/render/project",`./public/uploads/${imageName}`),
+         path.join(process.cwd(),`../public/uploads/${imageName}`),
          buffer
          )
       }
-      console.log(path.join("/opt/render/project",`./public/uploads/${imageName}`))
+      // console.log(path.join("/opt/render/project",`./public/uploads/${imageName}`))
+      // console.log(os.homedir())
+      console.log(__dirname)
    }
 
 
