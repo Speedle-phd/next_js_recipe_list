@@ -18,12 +18,22 @@ export async function POST(request: NextRequest) {
       imageName = `${Date.now()}-${id}-${img.name}`.trim()
       const arrBuffer = await img.arrayBuffer()
       const buffer = Buffer.from(arrBuffer)
-      await writeFile(
-         path.join(process.cwd(),`./public/uploads/${imageName}`),
+
+      if(process.env.NODE_ENV === "development") {
+         await writeFile(
+            path.join(process.cwd(),`./public/uploads/${imageName}`),
+            buffer
+         )
+
+      } else {
+         await writeFile(
+         path.join("/opt/render/project",`./public/uploads/${imageName}`),
          buffer
-      )
+         )
+      }
+      console.log(path.join("/opt/render/project",`./public/uploads/${imageName}`))
    }
-   console.log(path.join(process.cwd(), `./public/uploads/${imageName}`), 'cwd')
+
 
    const title = (body.get('title') as string) ?? null
    const sources = (body.get('sources') as string) ?? null
