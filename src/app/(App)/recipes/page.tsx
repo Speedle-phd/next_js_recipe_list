@@ -32,6 +32,7 @@ const Recipes = async ({ searchParams }) => {
                   const tagsArr = el.tags.split(', ')
                   return (
                      <RecipeCard
+                     
                         width={300}
                         tagsArr={tagsArr}
                         imagePath={imagePath}

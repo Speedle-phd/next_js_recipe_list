@@ -6,6 +6,7 @@ import { cookies, headers } from 'next/headers'
 import { verifyJwt } from '@/lib/jwt'
 import prisma from '@/lib/db'
 import { revalidatePath, revalidateTag } from 'next/cache'
+import ClientImage from './ClientImage'
 
 type PRecipeCard = {
    id: string
@@ -29,7 +30,10 @@ const RecipeCard = async({
 
    const header = headers()
    const userId = header.get('x-userid')
-
+   const {PAGE_URL} = process.env
+   console.log(PAGE_URL)
+   const imageUrl = imagePath
+   console.log(imageUrl)
 
    //refactor to route /api/recipes/delete
    const deleteAction = async() => {
@@ -51,13 +55,17 @@ const RecipeCard = async({
    }
    console.log(imagePath)
 
+
+
+
    return (
       <div key={id} className="bg-white shadow-xl join flex flex-col gap-1 max-w-fit text-center mx-auto py-4">
          <h2 className="font-bold text-2xl join-item">{title}</h2>
          <div className="custom-underline"></div>
-         <Image
+         <ClientImage
+            pageUrl={PAGE_URL}
             className='object-cover aspect-square join-item'
-            src={imagePath ?? plate}
+            src={imagePath}
             alt={title}
             width={width}
             height={width}

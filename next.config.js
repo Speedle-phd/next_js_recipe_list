@@ -16,15 +16,20 @@ const nextConfig = {
    // }
    // fastRefresh: true,
    images: {
+      
       remotePatterns: [
          {
-            protocol: 'https',
+            protocol: "https",
             hostname: 'next-js-recipe-list.onrender.com/',
-            port: '',
-            // pathname: '/',
-            // protocol: 'http',
-            // hostname: 'localhost',
-            // port: '3000',
+            port: "10000"
+         },
+         {
+            hostname: '127.0.0.1',
+         },
+         {
+            protocol: "http",
+            hostname: 'localhost',
+            port: "3000",
          },
       ],
    },

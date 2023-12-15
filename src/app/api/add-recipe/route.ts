@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
    const img = (body.get('file') as File) ?? null
    let imageName
    if (img) {
-      imageName = `${Date.now()}-${id}-${img.name}`
+      imageName = `${Date.now()}-${id}-${img.name}`.trim()
       const arrBuffer = await img.arrayBuffer()
       const buffer = Buffer.from(arrBuffer)
       await writeFile(
