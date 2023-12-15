@@ -32,8 +32,8 @@ export async function POST(request: NextRequest) {
          )
       }
       // console.log(path.join("/opt/render/project",`./public/uploads/${imageName}`))
-      // console.log(os.homedir())
-      console.log(__dirname)
+      console.log(os.homedir(), 'logged!')
+      console.log(__dirname, 'logged!')
    }
 
 
