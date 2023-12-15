@@ -20,8 +20,11 @@ const nextConfig = {
          {
             protocol: 'https',
             hostname: 'next-js-recipe-list.onrender.com/',
-            // port: '',
-            // pathname: '/account123/**',
+            port: '',
+            // pathname: '/',
+            // protocol: 'http',
+            // hostname: 'localhost',
+            // port: '3000',
          },
       ],
    },

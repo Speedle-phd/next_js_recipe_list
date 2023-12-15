@@ -18,7 +18,7 @@ export async function GET(request: NextRequest){
          .findMany({ where: { authorId: userId } })
          .then((data) => data.length)
 
-      const maxPages = Math.ceil(length / 10)
+      const maxPages = Math.max(1, Math.ceil(length / 10))
       const hasMore = +page !== maxPages
 
       console.log(hasMore)

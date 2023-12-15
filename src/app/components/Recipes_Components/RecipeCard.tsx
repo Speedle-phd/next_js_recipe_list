@@ -30,8 +30,11 @@ const RecipeCard = async({
    const header = headers()
    const userId = header.get('x-userid')
 
+
+   //refactor to route /api/recipes/delete
    const deleteAction = async() => {
       "use server"
+      console.log(id)
       try {
          const deletedEntry = await prisma.recipe.delete({
             where: {
@@ -46,7 +49,7 @@ const RecipeCard = async({
          console.log(err)
       }
    }
-
+   console.log(imagePath)
 
    return (
       <div key={id} className="bg-white shadow-xl join flex flex-col gap-1 max-w-fit text-center mx-auto py-4">

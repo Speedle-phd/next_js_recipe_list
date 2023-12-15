@@ -355,7 +355,7 @@ const AddRecipeForm = () => {
                            // onLoad={onImageLoad}
                            width={300}
                            height={300}
-                           className='min-w-[15rem]'
+                           className='w-[max(20rem,40vmin)]'
                         />
                      </ReactCrop>
                      <div className='join mx-auto'>

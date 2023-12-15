@@ -12,6 +12,7 @@ const Login = () => {
             width={1000}
             height={1500}
             priority={true}
+            placeholder="blur"
             alt='picture of spices on spoons'
             className='h-[100dvh] object-cover object-center w-[100vw] col-[1_/_-1] row-[1_/_-1] lg:col-[unset]'
          />

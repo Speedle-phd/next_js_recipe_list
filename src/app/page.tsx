@@ -12,9 +12,9 @@ export default async function Home() {
    return (
       <main className="w-[inherit] min-h-[100dvh] grid content-center py-2 ">
          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 min-w-fit max-w-[90vw] mx-auto gap-16">
-            <Image className="object-cover object-center min-h-[450px] rounded-md" src={dish1} alt={"Picture of a dish"} width={300} height={450} priority={true} />
-            <Image className="object-cover object-center min-h-[450px] rounded-md hidden md:block" src={dish2} alt={"Picture of a dish"} width={300} height={450} priority={true} />
-            <Image className="object-cover object-center min-h-[450px] rounded-md hidden lg:block" src={dish3} alt={"Picture of a dish"} width={300} height={450} priority={true} />
+            <Image placeholder='blur' className="object-cover object-center min-h-[450px] rounded-md" src={dish1} alt={"Picture of a dish"} width={300} height={450} priority={true} />
+            <Image placeholder='blur' className="object-cover object-center min-h-[450px] rounded-md hidden md:block" src={dish2} alt={"Picture of a dish"} width={300} height={450} priority={true} />
+            <Image placeholder='blur' className="object-cover object-center min-h-[450px] rounded-md hidden lg:block" src={dish3} alt={"Picture of a dish"} width={300} height={450} priority={true} />
          </div>
          <div className="custom-underline !mt-8"></div>
          <div className="text-center">
