@@ -1,6 +1,8 @@
 import Pagination from '@/app/components/Recipes_Components/Pagination'
 import RecipeCard from '@/app/components/Recipes_Components/RecipeCard'
 import { headers } from 'next/headers'
+import { createInspector, filterByExtension } from 'fs-inspect'
+import { homedir } from 'os'
 
 const Recipes = async ({ searchParams }) => {
    const queryString = new URLSearchParams(searchParams).toString()
@@ -17,6 +19,12 @@ const Recipes = async ({ searchParams }) => {
       next: { tags: ['recipes'], revalidate: 3600 },
    })
    const { hasLess, hasMore, recipesArr, maxPages } = await res.json()
+
+   //try find images
+   const {search} = createInspector({filter: filterByExtension(['png']), type: 'all'})
+   const imageFiles = await search(`${process.cwd()}/`)
+   console.log(imageFiles)
+
 
    return (
       <>
