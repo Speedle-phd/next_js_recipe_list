@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
 
       } else {
          await writeFile(
-         path.join(process.cwd(),`../public/uploads/${imageName}`),
+         path.join(process.cwd(),`./public/uploads/${imageName}`),
          buffer
          )
       }
