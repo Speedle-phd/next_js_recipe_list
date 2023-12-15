@@ -23,9 +23,7 @@ export async function POST(request: NextRequest) {
          buffer
       )
    }
-   console.log(
-      process.cwd(), "cwd"
-   )
+   console.log(path.join(process.cwd(), `./public/uploads/${imageName}`), 'cwd')
 
    const title = (body.get('title') as string) ?? null
    const sources = (body.get('sources') as string) ?? null
