@@ -1,11 +1,14 @@
 import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextRequest } from 'next/server'
 import { cookies } from 'next/headers'
 import { verifyJwt } from './lib/jwt'
 import { UnauthorizedError } from './lib/errors'
+import { revalidatePath, revalidateTag } from 'next/cache'
 
 export async function middleware(request: NextRequest) {
-// console.log(request)
+   // console.log(request)
+   // console.log(request.nextUrl.pathname)
+   // console.log(request.method)
 
    const requestHeaders = new Headers()
    requestHeaders.set('x-pathname', request.nextUrl.pathname)
@@ -17,6 +20,7 @@ export async function middleware(request: NextRequest) {
 
    // API ROUTE MIDDLEWARE
    if (request.nextUrl.pathname.startsWith("/api") && isAuth){
+
       const verified = await verifyJwt(authCookie?.value)
       const userEmail = verified.payload.iss
       if (
@@ -50,13 +54,12 @@ export async function middleware(request: NextRequest) {
    } else if (!isAuth && request.nextUrl.pathname.startsWith('/login')){
       return NextResponse.next()
    } else {
+      let verified;
       if (authCookie?.value) {
-         let verified;
          try {
             verified = await verifyJwt(authCookie.value)
          } catch (error) {
             verified = false
-            console.log(error)
          }
          if (verified) {
             requestHeaders.set('x-authorized', authCookie.value)
@@ -65,9 +68,13 @@ export async function middleware(request: NextRequest) {
          } else {
             const response = NextResponse.redirect(new URL('/login', request.url))
             response.cookies.delete('panda-recipes-auth')
-            console.log('redirect')
             return response
          }
+      }
+      if(request.method === "POST" && request.nextUrl.pathname.startsWith('/recipes')){
+         const response = NextResponse.next()
+         response.headers.set('x-userid', verified.payload.id)
+         return response
       }
       return NextResponse.next({
          request: {

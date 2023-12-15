@@ -3,6 +3,7 @@
 
 generator client {
    provider = "prisma-client-js"
+   // previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -25,7 +26,7 @@ model Recipe {
    tags     String?
    sources  String?
    image    String?
-   rank     Int @default(0)
+   rank     Float @default(0)
    author   User    @relation(fields: [authorId], references: [id])
    authorId String
 }

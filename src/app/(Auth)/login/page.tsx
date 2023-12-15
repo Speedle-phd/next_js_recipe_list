@@ -1,5 +1,5 @@
 import Image from "next/image"
-import loginPicture from "/public/images/login-side.jpg"
+import loginPicture from "/public/images/login-side.webp"
 import LoginCard from "../../components/Login_Components/LoginCard"
 
 

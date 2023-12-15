@@ -26,10 +26,6 @@ const IngredientsPicker = ({
       return total
    },{})
 
-   
-   // const groupedIngredients = Object.groupBy(ingredientsArray, el => el.type)
-   
-
    const groupedArray = [...Object.entries(groupedIngredients)]
 
    const handleKeyDown = (e: React.KeyboardEvent) => {

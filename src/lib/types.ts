@@ -55,3 +55,11 @@ export const addRecipeSchema = z.object({
 })
 
 export type TAddRecipeSchema = z.infer<typeof addRecipeSchema>
+
+export const addRecipeServerSchema = z.object({
+   title: z.string().min(3),
+   image: z.string().refine(string => string.endsWith('.png')).optional(),
+   authorId: z.string().uuid(),
+   tags: z.string().optional(),
+   sources: z.string().optional()
+})

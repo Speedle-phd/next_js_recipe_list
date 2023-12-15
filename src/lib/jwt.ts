@@ -7,3 +7,4 @@ export const verifyJwt = async(jwt: string) => {
    )
    return verified
 }
+

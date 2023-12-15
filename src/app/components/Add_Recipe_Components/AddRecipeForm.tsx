@@ -8,12 +8,13 @@ import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import ReactCrop, { type PixelCrop, type Crop } from 'react-image-crop'
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 import IngredientsPicker from './IngredientsPicker'
 import { cn, getErrorMessage } from '@/lib/utils'
-
+import { useRouter } from 'next/navigation'
+import  useClickOutside  from '@/lib/hooks/useClickOutside'
 const AddRecipeForm = () => {
-   
+   const router = useRouter()
    const fileRef = useRef<HTMLInputElement | null>(null)
    const previewCanvasRef = useRef<HTMLCanvasElement>(null)
    const imageRef = useRef<HTMLImageElement>(null)
@@ -25,6 +26,9 @@ const AddRecipeForm = () => {
    const [croppedImage, setCroppedImage] = useState(null)
    const [blob, setBlob] = useState<Blob | null>(null)
    const [showIngredients, setShowIngredients] = useState(false)
+   const modalRef = useRef<HTMLElement | null>(null)
+
+   
 
    const handleFileChange = () => {
       if (fileRef.current?.files?.length < 1) return
@@ -36,7 +40,7 @@ const AddRecipeForm = () => {
       reader.readAsDataURL(fileRef.current?.files[0])
    }
 
-   const onCancelModal = () => {
+   function onCancelModal ()  {
       setImageSrc(undefined)
       setCompletedCrop(undefined)
       fileRef.current.value = null
@@ -131,34 +135,46 @@ const AddRecipeForm = () => {
       [completedCrop]
    )
 
-   const {register, formState: {errors, isSubmitting}, handleSubmit, reset} = useForm<TAddRecipeSchema>({resolver: zodResolver(addRecipeSchema)})
+   const {
+      register,
+      formState: { errors, isSubmitting },
+      handleSubmit,
+      reset,
+   } = useForm<TAddRecipeSchema>({ resolver: zodResolver(addRecipeSchema) })
 
-      const onSubmit = async(data:TAddRecipeSchema, e: React.FormEvent) => {
+   const onSubmit = async (data: TAddRecipeSchema, e: React.FormEvent) => {
+      const body = new FormData(e.target as HTMLFormElement)
 
-         const body = new FormData(e.target as HTMLFormElement)
-
-         if(blob){
-            const imageFile = new File([blob], 'dish.png', {type: "image/png"})
-            body.append("file", imageFile)
-         }
-         try {
-            const response = await fetch('/api/add-recipe', {
-               method: 'POST',
-               body,
-            })
-            const res = await response.json() as TResponse
-            if(res.success){
-               toast.success('Successfully added a new recipe to your cookbook.')
-               reset()
-            } else {
-               throw new Error(res.message)
-            }
-         } catch (err) {
-            const errMessage = getErrorMessage(err)
-            toast.error(errMessage)
-         }
-         
+      if (blob) {
+         const imageFile = new File([blob], 'dish.png', { type: 'image/png' })
+         body.append('file', imageFile)
       }
+      try {
+         const response = await fetch('/api/add-recipe', {
+            method: 'POST',
+            body,
+            cache: 'no-store',
+         })
+         const res = (await response.json()) as TResponse
+         if (res.success) {
+            toast.success('Successfully added a new recipe to your cookbook.')
+            reset()
+            router.refresh()
+            setImageSrc(undefined)
+            setCompletedCrop(undefined)
+            fileRef.current.value = null
+         } else if ('errors' in res) {
+            res.errors.forEach((err) => {
+               toast.error(err)
+            })
+         } else {
+            throw new Error(res.message)
+         }
+      } catch (err) {
+         const errMessage = getErrorMessage(err)
+         toast.error(errMessage)
+      }
+   }
 
    useEffect(() => {
       if (Object.keys(errors).length > 0) {
@@ -205,55 +221,87 @@ const AddRecipeForm = () => {
                   />
                </div>
                {/* BASIC TAGS */}
-               <fieldset className="flex flex-wrap gap-6 items-center">
+               <fieldset className='flex flex-wrap gap-6 items-center'>
                   <div className='radio-control '>
                      <input
-                     className="checked-checkbox"
-                     hidden
+                        className='checked-checkbox'
+                        hidden
                         defaultChecked
                         value='meat'
                         type='radio'
                         {...register('type')}
                         id='radio-btn-type-meat'
                      />
-                     <label tabIndex={0} className="focus-visible:border-2 hover:border-2 hover:border-black focus-visible:border-black px-4 py-3 rounded-md bg-zinc-200 font-semibold text-sm" htmlFor='radio-btn-type-meat'>Meat</label>
+                     <label
+                        tabIndex={0}
+                        className='focus-visible:border-2 hover:border-2 hover:border-black focus-visible:border-black px-4 py-3 rounded-md bg-zinc-200 font-semibold text-sm'
+                        htmlFor='radio-btn-type-meat'
+                     >
+                        Meat
+                     </label>
                   </div>
                   <div className='radio-control'>
                      <input
-                     className="checked-checkbox"
-                     hidden
+                        className='checked-checkbox'
+                        hidden
                         value='vegetarian'
                         type='radio'
                         {...register('type')}
                         id='radio-btn-type-vegetarian'
                      />
-                     <label tabIndex={0} className="focus-visible:border-2 hover:border-2 hover:border-black focus-visible:border-black px-4 py-3 rounded-md bg-zinc-200 font-semibold text-sm" htmlFor='radio-btn-type-vegetarian'>
+                     <label
+                        tabIndex={0}
+                        className='focus-visible:border-2 hover:border-2 hover:border-black focus-visible:border-black px-4 py-3 rounded-md bg-zinc-200 font-semibold text-sm'
+                        htmlFor='radio-btn-type-vegetarian'
+                     >
                         Vegetarian
                      </label>
                   </div>
                   <div className='radio-control'>
                      <input
-                     className="checked-checkbox"
-                     hidden
+                        className='checked-checkbox'
+                        hidden
                         value='vegan'
                         type='radio'
                         {...register('type')}
                         id='radio-btn-type-vegan'
                      />
-                     <label tabIndex={0} className="focus-visible:border-2 hover:border-2 hover:border-black focus-visible:border-black px-4 py-3 rounded-md bg-zinc-200 font-semibold text-sm" htmlFor='radio-btn-type-vegan'>Vegan</label>
+                     <label
+                        tabIndex={0}
+                        className='focus-visible:border-2 hover:border-2 hover:border-black focus-visible:border-black px-4 py-3 rounded-md bg-zinc-200 font-semibold text-sm'
+                        htmlFor='radio-btn-type-vegan'
+                     >
+                        Vegan
+                     </label>
                   </div>
                </fieldset>
                <div className='relative checked-ingredients flex items-center'>
-                  <div role="button" tabIndex={0} onClick={() => setShowIngredients(!showIngredients)} className='btn w-full ingredients'>
+                  <div
+                     role='button'
+                     tabIndex={0}
+                     onClick={() => setShowIngredients(!showIngredients)}
+                     className='btn w-full ingredients'
+                  >
                      Pick tags for ingredients
                   </div>
-<IngredientsPicker
+                  <IngredientsPicker
                      register={register}
-                     className={cn({"visually-hidden": !showIngredients},'absolute w-full left-0 top-[4rem]')}
-                  /> 
+                     className={cn(
+                        { 'visually-hidden': !showIngredients },
+                        'absolute w-full left-0 top-[4rem]'
+                     )}
+                  />
                </div>
-               <button disabled={isSubmitting} className='btn col-[1/-1] bg-primary' type='submit'>
-                  {isSubmitting ? <div className='loading loading-ring'></div> : "Submit"}
+               <button
+                  disabled={isSubmitting}
+                  className='btn col-[1/-1] bg-primary'
+                  type='submit'
+               >
+                  {isSubmitting ? (
+                     <div className='loading loading-ring'></div>
+                  ) : (
+                     'Submit'
+                  )}
                </button>
             </form>
             <div className='flex flex-col items-start mx-auto'>
@@ -286,9 +334,9 @@ const AddRecipeForm = () => {
                   />
                </form>
                {!!imageSrc && (
-                  <aside
-                     className='flex flex-col gap-4 bg-white p-4 shadow
-            
+                  <aside  ref={modalRef}
+                     className='flex flex-col gap-4 bg-white p-4 shadow 
+                     
                   after:fixed after:top-0 after:left-0 after:z-[-1] after:w-[200vw] after:h-[200vh] after:translate-x-[-50%] after:translate-y-[-50%] after:backdrop-blur-sm
             
             
@@ -305,9 +353,9 @@ const AddRecipeForm = () => {
                            alt={'Crop me'}
                            ref={imageRef}
                            // onLoad={onImageLoad}
-                           width={400}
-                           height={400}
-                           className='min-w-[20rem]'
+                           width={300}
+                           height={300}
+                           className='min-w-[15rem]'
                         />
                      </ReactCrop>
                      <div className='join mx-auto'>

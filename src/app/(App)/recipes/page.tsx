@@ -1,47 +1,47 @@
 
-import prisma from "@/lib/db"
-import { headers } from "next/headers"
-import Image from "next/image"
+import Pagination from '@/app/components/Recipes_Components/Pagination'
+import RecipeCard from '@/app/components/Recipes_Components/RecipeCard'
+import { headers } from 'next/headers'
 
-const Recipes = async({searchParams}) => {
-   const {page} = searchParams
-   const skip = page ? (+page - 1) : 0
-   const hasLess = skip === 0 ? false : true
+
+const Recipes = async ({ searchParams }) => {
+
+   const queryString = new URLSearchParams(searchParams).toString()
+   const pageUrl = process.env.PAGE_URL
+   const url = `${pageUrl}/api/recipes?${queryString}`
    const userId = headers().get('x-userid')
-   const length = await prisma.recipe.findMany({where: {authorId: userId}}).then((data => data.length))
-   const hasMore = ((skip + 1) * 10 > length) ? false : true
+   const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+               'Content-Type': 'application/json',
+               'x-userid': userId
+            },
 
-   const recipesArr = await prisma.recipe.findMany({
-      where: {
-         authorId: userId
-      },
-      skip: skip,
-      take: 10,
-      orderBy: {
-         title: 'asc'
-      }
+      next: { tags:["recipes"], revalidate: 3600},
+
+      
    })
-   console.log(recipesArr)
-   console.log(hasMore)
-   console.log(hasLess)
-   
+   const {hasLess, hasMore, recipesArr, maxPages} = await res.json()
 
    return (
-      <div>
-         {recipesArr.map(el => {
-            const imagePath = `/uploads/${el.image}`
-            const {title, sources, tags, rank, id} = el
-            const tagsArr = tags.split(", ")
+      <>
+      <div className='grid gap-8 grid-cols-[repeat(auto-fit,minmax(225px,1fr))]'>
+         {recipesArr.map((el) => {
+            const imagePath = el.image ? `/uploads/${el.image}` : null
+            const tagsArr = el.tags.split(', ')
             return (
-               <div key={id}>
-                  <h2>{title}</h2>
-                  <p>{sources}</p>
-                  <Image src={imagePath} alt={title} width={200} height={200} />
-                  <p>{rank}</p>
-               </div>
+               <RecipeCard
+                  width={300}
+                  tagsArr={tagsArr}
+                  imagePath={imagePath}
+                  key={el.id}
+                  {...el}
+               />
             )
          })}
       </div>
+      <Pagination hasLess={hasLess} hasMore={hasMore} maxPages={maxPages} className="mt-8 w-full" />
+      </>
    )
 }
 
