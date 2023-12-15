@@ -24,7 +24,7 @@ const Pagination = ({className, hasLess, hasMore, maxPages} : TPagination) => {
    const urlParams = new URLSearchParams(searchParams)
    urlParams.set('page', page.toString())
    router.push(pathname + "?" + urlParams)
-   }, [page, searchParams, pathname, router])
+   }, [page, searchParams, pathname, router, mount])
 
 
   return (

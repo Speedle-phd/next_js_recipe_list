@@ -15,11 +15,21 @@ const nextConfig = {
    //    return config
    // }
    // fastRefresh: true,
+   images: {
+      remotePatterns: [
+         {
+            protocol: 'https',
+            hostname: 'next-js-recipe-list.onrender.com/',
+            // port: '',
+            // pathname: '/account123/**',
+         },
+      ],
+   },
    optimizeFonts: false,
    productionBrowserSourceMaps: false,
    swcMinify: true,
    // webpack: (config) => {
-      /* On `node-fetch` v2, that `supabase-js` uses,
+   /* On `node-fetch` v2, that `supabase-js` uses,
   `encoding` package was optionally required for `.textConverted`
   which means it wasn't in `node-fetch` deps.
   See: https://github.com/node-fetch/node-fetch/issues/412.
