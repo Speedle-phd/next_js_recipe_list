@@ -23,6 +23,9 @@ export async function POST(request: NextRequest) {
          buffer
       )
    }
+   console.log(
+      path.join(__dirname, `../../../../../public/uploads/${imageName}`)
+   )
 
    const title = (body.get('title') as string) ?? null
    const sources = (body.get('sources') as string) ?? null
