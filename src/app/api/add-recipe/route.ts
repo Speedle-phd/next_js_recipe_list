@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
       )
    }
    console.log(
-      path.join(__dirname, `../../../../../public/uploads/${imageName}`)
+      process.cwd()
    )
 
    const title = (body.get('title') as string) ?? null
