@@ -21,7 +21,6 @@ const RegisterFormClient = () => {
    })
 
    const onSubmit = async (data: TRegisterSchema) => {
-      console.log(data)
       try {
          const response = await fetch('/api/register', {
             method: 'POST',
@@ -46,6 +45,8 @@ const RegisterFormClient = () => {
          if (responseData.success) {
             toast.success('Successfully registered.')
             router.push('/dashboard')
+         } else {
+            throw new Error(responseData.message)
          }
       } catch (error) {
          toast.error(getErrorMessage(error))

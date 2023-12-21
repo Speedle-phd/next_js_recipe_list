@@ -18,13 +18,15 @@ const ClientImage = ({ src, alt, width, height, className, pageUrl }: PClientIma
       return `${pageUrl}/${src}?w=${width}&q=${quality || 75}`
    }
    return (
+      
       <Image
          // loader={imageLoader}
-         className={cn(className, '')}
+         className={cn(className, "")}
          src={src ?? plate}
          alt={alt}
          width={width}
          height={height}
+         priority={true}
       />
    )
 }

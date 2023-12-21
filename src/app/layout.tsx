@@ -21,7 +21,7 @@ export default function RootLayout({
       <html data-theme='mytheme' lang='en'>
          <body className={`${inter.className} bg-zinc-100 text-zinc-900 min-h-[100dvh]`}>
             <ToastContainer position='top-center' autoClose={3000} />
-            {children}
+               {children}
          </body>
       </html>
    )

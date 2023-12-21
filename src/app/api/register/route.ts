@@ -33,6 +33,7 @@ export async function POST(request: Request) {
                   password: hash,
                },
             })
+            console.log(user)
             const token = await new jose.SignJWT({
                email: user.email,
                username: user.username,
@@ -47,6 +48,7 @@ export async function POST(request: Request) {
          }
       
    } catch (error) {
+      console.log(error)
       const message = getErrorMessage(error)
       const statuscode = error.statuscode ?? undefined
       return NextResponse.json({

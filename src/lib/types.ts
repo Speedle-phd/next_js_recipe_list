@@ -63,3 +63,31 @@ export const addRecipeServerSchema = z.object({
    tags: z.string().optional(),
    sources: z.string().optional()
 })
+
+export const changePasswordSchema = z.object({
+   password: z.string().min(7, 'Password must be at least 7 characters'),
+      confirmPassword: z.string(),
+   })
+   .refine((data) => data.confirmPassword === data.password, {
+      message: 'Passwords do not match.',
+      path: ['confirmPassword'],
+})
+
+export const filterRecipeSchema = z.object({
+   title: z.string().optional(),
+   sources: z.string().optional(),
+   type: z.enum(['meat', 'vegetarian', 'vegan']).optional().or(z.null()),
+   ingredients: z.string().optional(),
+   rank: z.string().optional()
+})
+
+export type TFilterRecipeSchema = z.infer<typeof filterRecipeSchema>
+
+export type TMenuItem = {
+   id: string
+   title: string
+   sources: string
+   tagsArr: string[]
+   imagePath: string
+   PAGE_URL: string
+}

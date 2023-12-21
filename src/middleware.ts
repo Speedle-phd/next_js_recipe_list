@@ -8,7 +8,7 @@ import { revalidatePath, revalidateTag } from 'next/cache'
 export async function middleware(request: NextRequest) {
    // console.log(request)
    // console.log(request.nextUrl.pathname)
-   // console.log(request.method)
+   console.log(request.method)
 
    const requestHeaders = new Headers()
    requestHeaders.set('x-pathname', request.nextUrl.pathname)
@@ -33,6 +33,7 @@ export async function middleware(request: NextRequest) {
          return NextResponse.json({ statuscode, message })
       } else {
          requestHeaders.set('x-userid', verified.payload.id as string)
+         
          return NextResponse.next({headers: requestHeaders})
       }
    } else if (!isAuth && request.nextUrl.pathname.startsWith("/api")){
@@ -65,13 +66,19 @@ export async function middleware(request: NextRequest) {
             requestHeaders.set('x-authorized', authCookie.value)
             requestHeaders.set('x-userid', verified.payload.id)
             requestHeaders.set('x-username', verified.payload.username)
+            requestHeaders.set('x-email', verified.payload.iss)
          } else {
             const response = NextResponse.redirect(new URL('/login', request.url))
             response.cookies.delete('panda-recipes-auth')
             return response
          }
       }
-      if(request.method === "POST" && request.nextUrl.pathname.startsWith('/recipes')){
+      if (
+         (request.method === 'POST' &&
+            request.nextUrl.pathname.startsWith('/recipes')) ||
+         (request.method === 'POST' &&
+            request.nextUrl.pathname.startsWith('/settings'))
+      ) {
          const response = NextResponse.next()
          response.headers.set('x-userid', verified.payload.id)
          return response

@@ -38,6 +38,7 @@ const AddRecipeForm = () => {
          setImageSrc(reader.result?.toString() ?? '')
       })
       reader.readAsDataURL(fileRef.current?.files[0])
+      
    }
 
    function onCancelModal ()  {
@@ -50,6 +51,7 @@ const AddRecipeForm = () => {
       setImageSrc(undefined)
       getCroppedImage()
    }
+
 
    //   function onImageLoad(e: React.SyntheticEvent<HTMLImageElement>) {
    //     if (aspect) {
@@ -335,10 +337,9 @@ const AddRecipeForm = () => {
                </form>
                {!!imageSrc && (
                   <aside  ref={modalRef}
-                     className='flex flex-col gap-4 bg-white p-4 shadow 
-                     
+                     className='flex flex-col gap-4 bg-white p-4 shadow-xl max-h-[80dvh]
+
                   after:fixed after:top-0 after:left-0 after:z-[-1] after:w-[200vw] after:h-[200vh] after:translate-x-[-50%] after:translate-y-[-50%] after:backdrop-blur-sm
-            
             
                   justify-center fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]'
                   >
@@ -353,9 +354,11 @@ const AddRecipeForm = () => {
                            alt={'Crop me'}
                            ref={imageRef}
                            // onLoad={onImageLoad}
-                           width={300}
-                           height={300}
-                           className='w-[max(20rem,40vmin)]'
+                           width={600}
+                           height={600}
+                           className="mx-auto min-w-[70vw] sm:min-w-[35rem]"
+                           
+                           
                         />
                      </ReactCrop>
                      <div className='join mx-auto'>

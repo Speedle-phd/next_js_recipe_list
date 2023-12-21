@@ -40,6 +40,16 @@ const NavLinks = () => {
          <li>
             <Link
                className={`${
+                  pathname.startsWith('/menu') ? 'bg-base-100' : null
+               }`}
+               href='/menu'
+            >
+               Menu
+            </Link>
+         </li>
+         <li>
+            <Link
+               className={`${
                   pathname.startsWith('/settings') ? 'bg-base-100' : null
                }`}
                href='/settings'

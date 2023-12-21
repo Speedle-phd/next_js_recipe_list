@@ -4,10 +4,12 @@ import { cookies, headers } from 'next/headers'
 import prisma from './db'
 import * as jose from 'jose'
 import { redirect } from 'next/navigation'
-import { revalidatePath } from 'next/cache'
+import { revalidateTag } from 'next/cache'
 import { verifyJwt } from './jwt'
 import { UnauthorizedError } from './errors'
 import { getErrorMessage } from './utils'
+import { changePasswordSchema } from './types'
+import bcrypt from 'bcrypt'
 
 export const guestLoginAction = async () => {
    const cookieStore = cookies()
@@ -46,17 +48,47 @@ export const updateRank = async(id: string, rank: number) => {
          }
       })
       if(updateRank){
-         console.log(updateRank)
+         revalidateTag('recipes')
          return {success: true}
       }
 
    } catch (err) {
       return new Error(getErrorMessage(err))
    }
+}
+
+export const patchPassword = async(userId: string, {message}, formData: FormData) => {
+
+   let errorArr = []
+   const password = formData.get('password') as string
+   const confirmPassword = formData.get('confirm-password')
+   const payload = {
+      password,
+      confirmPassword
+   }
+   const result = changePasswordSchema.safeParse(payload) as {success: boolean; error: {errors: {message: string}[]}}
+   if(!result.success){
+      result.error.errors.forEach(err => {
+         errorArr.push(err.message)
+      })
+      return {message: errorArr}
+   }
+   const hash = await bcrypt.hash(password, 10)
+   try {
+      const patchedPassword = await prisma.user.update({
+         where: {
+            id: userId
+         },
+         data: {
+            password: hash
+         }
+      })
+      if(patchedPassword){
+         return {success: true}
+      }
+   } catch (error) {
+      return {success: false, message: [getErrorMessage(error)]}
+   }
 
 
-
-   console.log(id, rank, userId)
-
-   // revalidatePath('/recipes')
 }
