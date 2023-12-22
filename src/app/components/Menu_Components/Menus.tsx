@@ -21,7 +21,7 @@ const Menus = () => {
          </h2>
          <div className='custom-underline'></div>
          <div className='grid gap-4 md:grid-cols-[repeat(auto-fit,minmax(512px,_1fr))]'>
-            {isClient ? menu.length > 0 ?
+            {isClient ? (menu ?? []).length > 0 ?
                menu?.map((el) => {
                   return <MenuItem key={el.id} {...el} />
                }) : <div className="flex text-center justify-center items-center flex-col gap-2">

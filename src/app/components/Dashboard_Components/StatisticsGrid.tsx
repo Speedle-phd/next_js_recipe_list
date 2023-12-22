@@ -46,6 +46,15 @@ const StatisticsGrid = async () => {
    const meatAvg = getAverage(typeGroups.meat ?? [{ rank: 0 }])
    const vegetarianAvg = getAverage(typeGroups.vegetarian ?? [{ rank: 0 }])
    const veganAvg = getAverage(typeGroups.vegan ?? [{ rank: 0 }])
+   const meatPercent = +(meatAmount / length * 100).toFixed(2)
+   const vegetarianPercent = +(vegetarianAmount / length * 100).toFixed(2)
+   const veganPercent = +(veganAmount / length * 100).toFixed(2)
+   const pieChartData = [
+      {name: "Carnivore", value: meatPercent},
+      {name: "Vegetarian", value: vegetarianPercent},
+      {name: "Vegan", value: veganPercent}
+   ]
+   
 
    return (
       <div
@@ -54,7 +63,7 @@ const StatisticsGrid = async () => {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
          }}
-         className='flex flex-wrap gap-4 p-14 rounded-box mx-auto'
+         className='flex flex-wrap gap-4 p-4 md:p-14 rounded-box mx-auto'
       >
          <AmountTile
             meatAmount={meatAmount}
@@ -65,6 +74,7 @@ const StatisticsGrid = async () => {
          />
          <FrequencyPieTile 
             className="lg:basis-[calc(50%-1rem)]"
+            pieData={pieChartData}
          />
       </div>
    )
