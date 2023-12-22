@@ -7,15 +7,20 @@ type PFrequencyPieTile = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer, LabelList, Legend } from 'recharts'
+import { PieChart, Pie, Cell, ResponsiveContainer, LabelList, Legend } from 'recharts'
 
 const COLORS = ['#FF8042', '#00C49F', '#FFBB28', ]
 const FrequencyPieTile = ({className, pieData} : PFrequencyPieTile) => {
+   const emptyValues = pieData.every(el => el.value === 0)
+
   return (
      <div className={cn(className,"glass p-4 rounded-box")}>
       <h2 className="font-semibold text-lg text-center text-black/60">Percentage per category</h2>
       <div className="divider"></div>
         <div className="flex justify-center items-center bg-zinc-100 rounded-box">
+
+         {emptyValues ? <div className="flex justify-center items-center py-4">No data to depict yet...</div> : 
+         
          <ResponsiveContainer width={"100%"} height={200} className="flex justify-center items-center">
             <PieChart height={600} width={700} className="">
                <Pie 
@@ -31,6 +36,7 @@ const FrequencyPieTile = ({className, pieData} : PFrequencyPieTile) => {
                //  label
                >
                   {pieData.map((entry, index) => {
+                     
                      return <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   })}
                   <LabelList className="text-[0.8rem]" />
@@ -39,6 +45,7 @@ const FrequencyPieTile = ({className, pieData} : PFrequencyPieTile) => {
             </PieChart>
                
          </ResponsiveContainer>
+         }
         </div>
      </div>
 

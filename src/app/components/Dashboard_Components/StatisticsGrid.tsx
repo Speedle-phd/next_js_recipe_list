@@ -46,16 +46,28 @@ const StatisticsGrid = async () => {
    const meatAvg = getAverage(typeGroups.meat ?? [{ rank: 0 }])
    const vegetarianAvg = getAverage(typeGroups.vegetarian ?? [{ rank: 0 }])
    const veganAvg = getAverage(typeGroups.vegan ?? [{ rank: 0 }])
-   const meatPercent = +(meatAmount / length * 100).toFixed(2)
-   const vegetarianPercent = +(vegetarianAmount / length * 100).toFixed(2)
-   const veganPercent = +(veganAmount / length * 100).toFixed(2)
-   const pieChartData = [
-      {name: "Carnivore", value: meatPercent},
-      {name: "Vegetarian", value: vegetarianPercent},
-      {name: "Vegan", value: veganPercent}
-   ]
+   let pieChartData;
+   if(length !== 0) {
+      const meatPercent = +(meatAmount / length * 100).toFixed(2)
+      const vegetarianPercent = +(vegetarianAmount / length * 100).toFixed(2)
+      const veganPercent = +(veganAmount / length * 100).toFixed(2)
+      pieChartData = [
+         {name: "Carnivore", value: meatPercent},
+         {name: "Vegetarian", value: vegetarianPercent},
+         {name: "Vegan", value: veganPercent}
+      ]
+   } else {
+      const meatPercent = +(meatAmount / 1 * 100).toFixed(2)
+      const vegetarianPercent = +(vegetarianAmount / 1 * 100).toFixed(2)
+      const veganPercent = +(veganAmount / 1 * 100).toFixed(2)
+      pieChartData = [
+         {name: "Carnivore", value: meatPercent},
+         {name: "Vegetarian", value: vegetarianPercent},
+         {name: "Vegan", value: veganPercent}
+      ]
+   }
    
-
+   console.log(pieChartData)
    return (
       <div
          style={{

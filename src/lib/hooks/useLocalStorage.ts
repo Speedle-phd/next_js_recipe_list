@@ -10,7 +10,7 @@ export const useLocalStorage = <T>(initialValue: T[], key: string) => {
 
       const LS = localStorage.getItem(key)
       console.log(LS)
-      if (LS !== "null" && LS !== null) {
+      if (LS !== 'null' && LS !== null && LS !== undefined && LS !== "undefined") {
          initial = JSON.parse(LS) as T[]
       } 
    }else {
