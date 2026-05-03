@@ -1,2 +1,2 @@
--- DELETE FROM user WHERE email = 'tslmoon@gmx.de';
+-- DELETE FROM user;
 SELECT * FROM User;

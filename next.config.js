@@ -2,34 +2,21 @@
 
 // const path = require('path')
 const nextConfig = {
-   // images: {
-   //    remotePatterns: [{
-   //       protocol: "https",
-   //       hostname: "placehold.jp"
-   //    }]
-   // }
-   // webpack: (config, options) => {
-   //    config.resolve.alias['react-toastify'] = path.join(__dirname, './node_modules/react-toastify')
-   //    config.resolve.alias[''] = path.join(__dirname, './node_modules/react-toastify')
-
-   //    return config
-   // }
-   // fastRefresh: true,
+   output: 'standalone', // Enable Docker optimization
    images: {
-      
       remotePatterns: [
          {
-            protocol: "https",
+            protocol: 'https',
             hostname: 'next-js-recipe-list.onrender.com/',
-            port: "10000"
+            port: '10000',
          },
          {
             hostname: '127.0.0.1',
          },
          {
-            protocol: "http",
+            protocol: 'http',
             hostname: 'localhost',
-            port: "3000",
+            port: '3000',
          },
       ],
    },

@@ -18,11 +18,10 @@ const FilterForm = () => {
       resolver: zodResolver(filterRecipeSchema),
    })
 
-
    const onSubmit = (data: TFilterRecipeSchema) => {
       console.log(data)
       const url = new URL(location.href)
-      for(let entry in data){
+      for (let entry in data) {
          url.searchParams.set(entry, data[entry])
       }
       router.push(url.href)
@@ -30,14 +29,25 @@ const FilterForm = () => {
       // revalidateTag('recipes')
    }
 
+   const onClearFilters = () => {
+      // Reset form fields
+      reset()
+
+      // Remove all query parameters and navigate to clean URL
+      const url = new URL(location.href)
+      url.search = ''
+      router.push(url.href)
+
+      toast.success('All filters cleared')
+   }
+
    useEffect(() => {
-      for(let error in errors){
-         
-         if(errors[error]?.message){
+      for (let error in errors) {
+         if (errors[error]?.message) {
             toast.error(errors[error]?.message)
          }
       }
-      
+
       //errors.rank.message
    }, [errors])
 
@@ -162,9 +172,22 @@ const FilterForm = () => {
                <span>|</span>
             </div>
          </div>
-         <button className="btn btn-primary" type="submit">
-            {isSubmitting ? <div className="loading loading-ring"></div> : "Apply"}
-         </button>
+         <div className='col-span-full flex gap-3 justify-center'>
+            <button className='btn btn-primary' type='submit'>
+               {isSubmitting ? (
+                  <div className='loading loading-ring'></div>
+               ) : (
+                  'Apply'
+               )}
+            </button>
+            <button
+               className='btn btn-outline btn-secondary'
+               type='button'
+               onClick={onClearFilters}
+            >
+               Clear Filters
+            </button>
+         </div>
       </form>
    )
 }

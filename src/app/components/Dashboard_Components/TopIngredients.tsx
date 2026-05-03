@@ -17,9 +17,9 @@ const TopIngredients = ({ className, topThree }: PTopIngredients) => {
                <li>
                   <h2 className="menu-title text-black/70">Top Three:</h2>
                   <ul>
-               <li><p className="capitalize"><span className="mr-8 text-yellow-200 font-extrabold text-3xl">1</span>{topThree[0].name}</p></li>
-               <li><p className="capitalize"><span className="mr-8 text-zinc-300 font-extrabold text-3xl">2</span>{topThree[1].name}</p></li>
-               <li><p className="capitalize"><span className="mr-8 text-amber-700 font-extrabold text-3xl">3</span>{topThree[2].name}</p></li>
+               <li><p className="capitalize"><span className="mr-8 text-yellow-200 font-extrabold text-3xl">1</span>{topThree[0]?.name}</p></li>
+               <li><p className="capitalize"><span className="mr-8 text-zinc-300 font-extrabold text-3xl">2</span>{topThree[1]?.name}</p></li>
+               <li><p className="capitalize"><span className="mr-8 text-amber-700 font-extrabold text-3xl">3</span>{topThree[2]?.name}</p></li>
                </ul>
                </li>
             </ul>
